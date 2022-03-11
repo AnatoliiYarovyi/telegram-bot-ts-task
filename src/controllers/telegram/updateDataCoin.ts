@@ -9,12 +9,15 @@ const updateDataCoin = async (
   callback_query_id: string,
   message_id: number,
 ) => {
-  const { coin: userCoin } = await User.findOne({ chat_id });
+  const { coin: userCoin } = await User.findOne({ chatId: chat_id });
   userCoin.includes(symbol)
     ? userCoin.splice(userCoin.indexOf(symbol), 1)
     : userCoin.push(symbol);
 
-  await User.findOneAndUpdate({ chat_id }, { $set: { coin: userCoin } });
+  await User.findOneAndUpdate(
+    { chatId: chat_id },
+    { $set: { coin: userCoin } },
+  );
 
   let text: string = userCoin.includes(symbol)
     ? `/${symbol} add to favorite`
