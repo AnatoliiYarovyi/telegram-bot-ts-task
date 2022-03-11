@@ -5,7 +5,9 @@ import addUser from './addUser';
 
 const startCommand = async (res, chat_id: number, userName: string) => {
   await addUser(chat_id, userName);
-  const text: string = `Hi, ${userName || 'my friend'}! Type /help to see what I can!`;
+  const text: string = `Hi, ${
+    userName || 'my friend'
+  }! Type /help to see what I can!`;
   axios
     .post(`${TELEGRAM_URL}/sendMessage`, {
       chat_id,
