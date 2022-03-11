@@ -4,13 +4,16 @@ const { TELEGRAM_URL } = process.env;
 import User from '../../models/user';
 import getCurrencyCoins from '../coin/getCurrencyCoins';
 
-const listFavouriteCommand = async (res, chat_id) => {
+const listFavouriteCommand = async (res, chat_id: number) => {
   const { coin: userCoin } = await User.findOne({ chat_id });
 
   let textMessage: string = `This is your list of favorite crypto coins and their average price per hour.`;
   userCoin.forEach(async (symbol, i, arr) => {
-    const data = await getCurrencyCoins(symbol);
-    const price = Number(data.price).toFixed(2);
+    const data: {
+      symbol: string;
+      price: string;
+    } = await getCurrencyCoins(symbol);
+    const price: string = Number(data.price).toFixed(2);
     textMessage += `\n/${symbol} = ${price}$`;
 
     if (i === arr.length - 1) {

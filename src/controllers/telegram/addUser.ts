@@ -1,6 +1,6 @@
 import User from '../../models/user';
 
-const addUser = async (chatId, userName) => {
+const addUser = async (chatId: number, userName: string) => {
   try {
     const userData = await User.findOne({ chatId });
     if (userData) {

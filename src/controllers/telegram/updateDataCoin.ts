@@ -4,10 +4,10 @@ import User from '../../models/user';
 
 const updateDataCoin = async (
   res,
-  chat_id,
-  symbol,
-  callback_query_id,
-  message_id,
+  chat_id: number,
+  symbol: string,
+  callback_query_id: string,
+  message_id: number,
 ) => {
   const { coin: userCoin } = await User.findOne({ chat_id });
   userCoin.includes(symbol)
@@ -16,7 +16,7 @@ const updateDataCoin = async (
 
   await User.findOneAndUpdate({ chat_id }, { $set: { coin: userCoin } });
 
-  let text = userCoin.includes(symbol)
+  let text: string = userCoin.includes(symbol)
     ? `/${symbol} add to favorite`
     : `/${symbol} remove from favorite`;
 

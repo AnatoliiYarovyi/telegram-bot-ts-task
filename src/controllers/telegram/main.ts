@@ -37,10 +37,10 @@ const main = async (req, res, next) => {
         helpCommand(res, chatId);
     }
   } else if (req.body.callback_query) {
-    const { id: chatId, username } = req.body.callback_query.from;
-    const symbolCoin = req.body.callback_query.data;
-    const callback_query_id = req.body.callback_query.id;
-    const message_id = req.body.callback_query.message.message_id;
+    const { id: chatId } = req.body.callback_query.from;
+    const symbolCoin: string = req.body.callback_query.data;
+    const callback_query_id: string = req.body.callback_query.id;
+    const message_id: number = req.body.callback_query.message.message_id;
 
     updateDataCoin(res, chatId, symbolCoin, callback_query_id, message_id);
   }
