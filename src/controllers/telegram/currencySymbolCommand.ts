@@ -6,12 +6,12 @@ import getCurrencyCoins from '../coin/getCurrencyCoins';
 
 interface UserData {
   chatId: number;
-  user: string;
-  coin: string[];
+  user: string | any;
+  coin: string[] | any;
 }
 
 const currencySymbolCommand = async (res, chat_id: number, symbol: string) => {
-  const userData: UserData = await User.findOne({ chat_id });
+  const userData: UserData = await User.findOne({ chatId: chat_id });
   const symbolCoin: string = symbol.slice(1);
   const timeInMinutes: number[] = [30, 60, 180, 360, 720, 1440];
   let textMessage: string = `/${symbolCoin} average price per: `;
