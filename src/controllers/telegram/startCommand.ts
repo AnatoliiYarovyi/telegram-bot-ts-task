@@ -3,7 +3,11 @@ const { TELEGRAM_URL } = process.env;
 
 import addUser from './addUser';
 
-const startCommand = async (res, chat_id: number, userName: string) => {
+const startCommand = async (
+  res,
+  chat_id: number,
+  userName: string | undefined,
+) => {
   await addUser(chat_id, userName);
   const text: string = `Hi, ${
     userName || 'my friend'
