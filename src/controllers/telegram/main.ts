@@ -6,10 +6,16 @@ import currencySymbolCommand from './currencySymbolCommand';
 import listFavouriteCommand from './listFavouriteCommand';
 import updateDataCoin from './updateDataCoin';
 
-const main = async (req: any, res: any, next: any) => {
+import ResReqObj from '../interface/interface';
+
+const main = async (req: ResReqObj, res: ResReqObj, next: void) => {
   if (!req.body.callback_query) {
     const { id: chatId, username } = req.body.message.chat;
     const { text } = req.body.message;
+
+    console.log('req: ', typeof req);
+    console.log('res: ', typeof res);
+    console.log('next: ', typeof next);
 
     switch (text) {
       case '/start':
