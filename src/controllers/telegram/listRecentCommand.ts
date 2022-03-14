@@ -3,7 +3,7 @@ const { TELEGRAM_URL } = process.env;
 
 import getAllCoins from '../coin/getAllCoins';
 
-const listRecentCommand = async (res, chat_id: number) => {
+const listRecentCommand = async (res: any, chat_id: number) => {
   const data: {
     symbol: string;
     price_average: string;
