@@ -2,8 +2,9 @@ import axios from 'axios';
 const { TELEGRAM_URL } = process.env;
 
 import getAllCoins from '../coin/getAllCoins';
+import ResReqObj from '../interface/interface';
 
-const listRecentCommand = async (res: any, chat_id: number) => {
+const listRecentCommand = async (res: ResReqObj, chat_id: number) => {
   const data: {
     symbol: string;
     price_average: string;
