@@ -3,8 +3,9 @@ const { TELEGRAM_URL } = process.env;
 
 import User from '../../models/user';
 import getCurrencyCoins from '../coin/getCurrencyCoins';
+import ResReqObj from '../interface/interface';
 
-const listFavouriteCommand = async (res: any, chat_id: number) => {
+const listFavouriteCommand = async (res: ResReqObj, chat_id: number) => {
   const { coin: userCoin } = await User.findOne({ chatId: chat_id });
 
   let textMessage: string = `This is your list of favorite crypto coins and their average price per hour.`;
