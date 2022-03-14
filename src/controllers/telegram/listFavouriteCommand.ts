@@ -12,10 +12,11 @@ const listFavouriteCommand = async (res, chat_id: number) => {
     userCoin.forEach(async (symbol, i, arr) => {
       const data: {
         symbol: string;
-        price: string | any;
+        price: string;
       } = await getCurrencyCoins(symbol);
 
-      const price: string | any = Number(data.price).toFixed(2);
+      const price: string = Number(data.price).toFixed(2);
+
       textMessage += `\n/${symbol} = ${price}$`;
 
       if (i === arr.length - 1) {
