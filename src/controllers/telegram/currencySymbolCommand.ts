@@ -10,7 +10,11 @@ interface UserData {
   coin: string[];
 }
 
-const currencySymbolCommand = async (res, chat_id: number, symbol: string) => {
+const currencySymbolCommand = async (
+  res: any,
+  chat_id: number,
+  symbol: string,
+) => {
   const userData: UserData = await User.findOne({ chatId: chat_id });
   const symbolCoin: string = symbol.slice(1);
   const timeInMinutes: number[] = [30, 60, 180, 360, 720, 1440];
