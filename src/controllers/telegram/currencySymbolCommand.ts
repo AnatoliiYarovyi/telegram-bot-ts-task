@@ -3,6 +3,7 @@ const { TELEGRAM_URL } = process.env;
 
 import User from '../../models/user';
 import getCurrencyCoins from '../coin/getCurrencyCoins';
+import ResReqObj from '../interface/interface';
 
 interface UserData {
   chatId: number;
@@ -11,7 +12,7 @@ interface UserData {
 }
 
 const currencySymbolCommand = async (
-  res: any,
+  res: ResReqObj,
   chat_id: number,
   symbol: string,
 ) => {
