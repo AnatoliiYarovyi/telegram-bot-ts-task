@@ -2,12 +2,20 @@ import axios from 'axios';
 const { TELEGRAM_URL } = process.env;
 import User from '../../models/user';
 
-const updateDataCoin = async (
-  res,
+type UpdateDataCoin = (
+  res: any,
   chat_id: number,
   symbol: string,
   callback_query_id: string,
   message_id: number,
+) => any;
+
+const updateDataCoin: UpdateDataCoin = async (
+  res,
+  chat_id,
+  symbol,
+  callback_query_id,
+  message_id,
 ) => {
   const { coin: userCoin } = await User.findOne({ chatId: chat_id });
   userCoin.includes(symbol)
