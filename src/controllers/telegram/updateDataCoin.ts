@@ -1,9 +1,10 @@
 import axios from 'axios';
 const { TELEGRAM_URL } = process.env;
 import User from '../../models/user';
+import ResReqObj from '../interface/interface';
 
 type UpdateDataCoin = (
-  res: any,
+  res: ResReqObj,
   chat_id: number,
   symbol: string,
   callback_query_id: string,
