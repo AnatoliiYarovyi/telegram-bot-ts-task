@@ -6,8 +6,8 @@ import getCurrencyCoins from '../coin/getCurrencyCoins';
 
 interface UserData {
   chatId: number;
-  user: string | any;
-  coin: string[] | any;
+  user: string;
+  coin: string[];
 }
 
 const currencySymbolCommand = async (res, chat_id: number, symbol: string) => {
