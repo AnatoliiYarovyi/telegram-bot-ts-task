@@ -21,35 +21,41 @@ const listFavouriteCommand = async (res: ResReqObj, chat_id: number) => {
       textMessage += `\n/${symbol} = ${price}$`;
 
       if (i === arr.length - 1) {
-        axios
-          .post(`${TELEGRAM_URL}/sendMessage`, {
-            chat_id,
-            text: textMessage,
-          })
-          .then(response => {
-            res.status(201).json({
-              status: 'success',
-              code: 201,
+        try {
+          await axios
+            .post(`${TELEGRAM_URL}/sendMessage`, {
+              chat_id,
+              text: textMessage,
+            })
+            .then(() => {
+              res.status(201).json({
+                status: 'success',
+                code: 201,
+              });
             });
-          })
-          .catch(err => res.send(err));
+        } catch (error) {
+          res.send(error);
+        }
       }
     });
   } else {
-    textMessage += `\nsorry, but now you don't have your favorite coins\npress /listRecent select your favorite coin and add it to your favorites list`;
+    try {
+      textMessage += `\nsorry, but now you don't have your favorite coins\npress /listRecent select your favorite coin and add it to your favorites list`;
 
-    axios
-      .post(`${TELEGRAM_URL}/sendMessage`, {
-        chat_id,
-        text: textMessage,
-      })
-      .then(response => {
-        res.status(201).json({
-          status: 'success',
-          code: 201,
+      axios
+        .post(`${TELEGRAM_URL}/sendMessage`, {
+          chat_id,
+          text: textMessage,
+        })
+        .then(response => {
+          res.status(201).json({
+            status: 'success',
+            code: 201,
+          });
         });
-      })
-      .catch(err => res.send(err));
+    } catch (error) {
+      res.send(error);
+    }
   }
 };
 
