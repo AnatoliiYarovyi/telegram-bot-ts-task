@@ -5,16 +5,22 @@ import User from '../../models/user';
 import getCurrencyCoins from '../coin/getCurrencyCoins';
 import ResReqObj from '../interface/interface';
 
+type CurrencySymbolCommand = (
+  res: ResReqObj,
+  chat_id: number,
+  symbol: string,
+) => any;
+
 interface UserData {
   chatId: number;
   user: string;
   coin: string[];
 }
 
-const currencySymbolCommand = async (
-  res: ResReqObj,
-  chat_id: number,
-  symbol: string,
+const currencySymbolCommand: CurrencySymbolCommand = async (
+  res,
+  chat_id,
+  symbol,
 ) => {
   const userData: UserData = await User.findOne({ chatId: chat_id });
   const symbolCoin: string = symbol.slice(1);
@@ -30,30 +36,33 @@ const currencySymbolCommand = async (
     textMessage += `\n${time / 60} hours = ${priceCoin}$`;
 
     if (i === arr.length - 1) {
-      axios
-        .post(`${TELEGRAM_URL}/sendMessage`, {
-          chat_id,
-          text: textMessage,
-          reply_markup: {
-            inline_keyboard: [
-              [
-                {
-                  text: userData.coin.includes(symbolCoin)
-                    ? 'Remove from favorite'
-                    : 'Add to favorite',
-                  callback_data: symbolCoin,
-                },
+      try {
+        await axios
+          .post(`${TELEGRAM_URL}/sendMessage`, {
+            chat_id,
+            text: textMessage,
+            reply_markup: {
+              inline_keyboard: [
+                [
+                  {
+                    text: userData.coin.includes(symbolCoin)
+                      ? 'Remove from favorite'
+                      : 'Add to favorite',
+                    callback_data: symbolCoin,
+                  },
+                ],
               ],
-            ],
-          },
-        })
-        .then(response => {
-          res.status(201).json({
-            status: 'success',
-            code: 201,
+            },
+          })
+          .then(() => {
+            res.status(201).json({
+              status: 'success',
+              code: 201,
+            });
           });
-        })
-        .catch(err => res.send(err));
+      } catch (error) {
+        res.send(error);
+      }
     }
   });
 };
