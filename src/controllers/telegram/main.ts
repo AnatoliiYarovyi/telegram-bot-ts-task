@@ -10,12 +10,13 @@ import ResReqObj from '../interface/interface';
 
 const main = async (req: ResReqObj, res: ResReqObj, next: void) => {
   if (!req.body.callback_query) {
+    const startTime: any = new Date();
+
     const { id: chatId, username } = req.body.message.chat;
     const { text } = req.body.message;
 
-    console.log('req: ', typeof req);
-    console.log('res: ', typeof res);
-    console.log('next: ', typeof next);
+    // console.log('req.body: ', req.body);
+    console.log('text: ', text);
 
     switch (text) {
       case '/start':
@@ -42,6 +43,10 @@ const main = async (req: ResReqObj, res: ResReqObj, next: void) => {
         console.log('Invalid command');
         await helpCommand(res, chatId);
     }
+
+    const endTime: any = new Date();
+    console.log('startTimeAllName: ', startTime);
+    console.log('endTimeAllNam: ', endTime);
   } else if (req.body.callback_query) {
     const { id: chatId } = req.body.callback_query.from;
     const symbolCoin: string = req.body.callback_query.data;
