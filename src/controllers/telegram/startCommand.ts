@@ -9,22 +9,25 @@ const startCommand = async (
   chat_id: number,
   userName: string | undefined,
 ) => {
-  await addUser(chat_id, userName);
-  const text: string = `Hi, ${
-    userName || 'my friend'
-  }! Type /help to see what I can!`;
-  axios
-    .post(`${TELEGRAM_URL}/sendMessage`, {
-      chat_id,
-      text,
-    })
-    .then(response => {
-      res.status(201).json({
-        status: 'success',
-        code: 201,
+  try {
+    await addUser(chat_id, userName);
+    const text: string = `Hi, ${
+      userName || 'my friend'
+    }! Type /help to see what I can!`;
+    await axios
+      .post(`${TELEGRAM_URL}/sendMessage`, {
+        chat_id,
+        text,
+      })
+      .then(() => {
+        res.status(201).json({
+          status: 'success',
+          code: 201,
+        });
       });
-    })
-    .catch(err => res.send(err));
+  } catch (error) {
+    res.send(error);
+  }
 };
 
 export default startCommand;
