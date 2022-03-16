@@ -4,19 +4,23 @@ import User from '../../models/user';
 import getAllCoins from '../coin/getAllCoins';
 import ResReqObj from '../interface/interface';
 
-type AddDataCoin = (
+type AddToFavoriteCommand = (
   res: ResReqObj,
   chat_id: number,
   symbol: string | undefined,
 ) => any;
 
-const addDataCoin: AddDataCoin = async (res, chat_id, symbol) => {
+const addToFavoriteCommand: AddToFavoriteCommand = async (
+  res,
+  chat_id,
+  symbol,
+) => {
   if (symbol === undefined) {
     try {
       await axios
         .post(`${TELEGRAM_URL}/sendMessage`, {
           chat_id,
-          text: `Sorry, but the command is not correct. Please enter /addToFavorite and the symbol of the coin. for example "/addToFavorite BTC"`,
+          text: `Sorry, but the command is not correct.\nPlease enter /addToFavorite and the symbol of the coin\n(for example "/addToFavorite BTC")`,
         })
         .then(() => {
           res.status(201).send();
@@ -88,4 +92,4 @@ const addDataCoin: AddDataCoin = async (res, chat_id, symbol) => {
   return;
 };
 
-export default addDataCoin;
+export default addToFavoriteCommand;
