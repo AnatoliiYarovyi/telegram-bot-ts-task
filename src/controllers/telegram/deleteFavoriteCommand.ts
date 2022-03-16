@@ -3,15 +3,23 @@ const { TELEGRAM_URL } = process.env;
 import User from '../../models/user';
 import ResReqObj from '../interface/interface';
 
-type DeleteDataCoin = (res: ResReqObj, chat_id: number, symbol: string) => any;
+type DeleteFavoriteCommand = (
+  res: ResReqObj,
+  chat_id: number,
+  symbol: string,
+) => any;
 
-const deleteDataCoin: DeleteDataCoin = async (res, chat_id, symbol) => {
+const deleteFavoriteCommand: DeleteFavoriteCommand = async (
+  res,
+  chat_id,
+  symbol,
+) => {
   if (symbol === undefined) {
     try {
       await axios
         .post(`${TELEGRAM_URL}/sendMessage`, {
           chat_id,
-          text: `Sorry, but the command is not correct. Please enter /deleteFavorite and the symbol of the coin. for example "/deleteFavorite BTC"`,
+          text: `Sorry, but the command is not correct. Please enter /deleteFavorite and the symbol of the coin (for example "/deleteFavorite BTC")`,
         })
         .then(() => {
           res.status(201).send();
@@ -61,4 +69,4 @@ const deleteDataCoin: DeleteDataCoin = async (res, chat_id, symbol) => {
   return;
 };
 
-export default deleteDataCoin;
+export default deleteFavoriteCommand;
