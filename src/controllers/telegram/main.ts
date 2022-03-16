@@ -15,10 +15,10 @@ const main = async (req: ResReqObj, res: ResReqObj, next: void) => {
     const { id: chatId, username } = req.body.message.chat;
     const { text } = req.body.message;
     const textArr: string = text.replace(/ +/g, ' ').trim().split(' ');
-    const comand: string = textArr[0];
+    const command: string = textArr[0];
     const symbolCoin: string = textArr[1];
 
-    switch (comand) {
+    switch (command) {
       case '/start':
         await startCommand(res, chatId, username);
         break;
