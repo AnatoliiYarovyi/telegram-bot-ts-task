@@ -5,20 +5,20 @@ import listRecentCommand from './listRecentCommand';
 import currencySymbolCommand from './currencySymbolCommand';
 import listFavouriteCommand from './listFavouriteCommand';
 import updateDataCoin from './updateDataCoin';
+import addDataCoin from './addDataCoin';
+import deleteDataCoin from './deleteDataCoin';
 
 import ResReqObj from '../interface/interface';
 
 const main = async (req: ResReqObj, res: ResReqObj, next: void) => {
   if (!req.body.callback_query) {
-    const startTime: any = new Date();
-
     const { id: chatId, username } = req.body.message.chat;
     const { text } = req.body.message;
+    const textArr: string = text.replace(/ +/g, ' ').trim().split(' ');
+    const comand: string = textArr[0];
+    const symbolCoin: string = textArr[1];
 
-    // console.log('req.body: ', req.body);
-    console.log('text: ', text);
-
-    switch (text) {
+    switch (comand) {
       case '/start':
         await startCommand(res, chatId, username);
         break;
@@ -31,8 +31,16 @@ const main = async (req: ResReqObj, res: ResReqObj, next: void) => {
         await listRecentCommand(res, chatId);
         break;
 
-      case `/listFavourite`:
+      case `/listFavorite`:
         await listFavouriteCommand(res, chatId);
+        break;
+
+      case `/addToFavorite`:
+        await addDataCoin(res, chatId, symbolCoin);
+        break;
+
+      case `/deleteFavorite`:
+        await deleteDataCoin(res, chatId, symbolCoin);
         break;
 
       case `/${await getSymbolCoin(text)}`:
@@ -43,17 +51,19 @@ const main = async (req: ResReqObj, res: ResReqObj, next: void) => {
         console.log('Invalid command');
         await helpCommand(res, chatId);
     }
-
-    const endTime: any = new Date();
-    console.log('startTimeAllName: ', startTime);
-    console.log('endTimeAllNam: ', endTime);
   } else if (req.body.callback_query) {
     const { id: chatId } = req.body.callback_query.from;
     const symbolCoin: string = req.body.callback_query.data;
     const callback_query_id: string = req.body.callback_query.id;
     const message_id: number = req.body.callback_query.message.message_id;
 
-    updateDataCoin(res, chatId, symbolCoin, callback_query_id, message_id);
+    await updateDataCoin(
+      res,
+      chatId,
+      symbolCoin,
+      message_id,
+      callback_query_id,
+    );
   }
 };
 
