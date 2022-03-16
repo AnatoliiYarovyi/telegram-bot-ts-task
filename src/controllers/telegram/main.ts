@@ -5,8 +5,8 @@ import listRecentCommand from './listRecentCommand';
 import currencySymbolCommand from './currencySymbolCommand';
 import listFavouriteCommand from './listFavouriteCommand';
 import updateDataCoin from './updateDataCoin';
-import addDataCoin from './addDataCoin';
-import deleteDataCoin from './deleteDataCoin';
+import addToFavoriteCommand from './addToFavoriteCommand';
+import deleteFavoriteCommand from './deleteFavoriteCommand';
 
 import ResReqObj from '../interface/interface';
 
@@ -36,11 +36,11 @@ const main = async (req: ResReqObj, res: ResReqObj, next: void) => {
         break;
 
       case `/addToFavorite`:
-        await addDataCoin(res, chatId, symbolCoin);
+        await addToFavoriteCommand(res, chatId, symbolCoin);
         break;
 
       case `/deleteFavorite`:
-        await deleteDataCoin(res, chatId, symbolCoin);
+        await deleteFavoriteCommand(res, chatId, symbolCoin);
         break;
 
       case `/${await getSymbolCoin(text)}`:
