@@ -10,7 +10,7 @@ const listFavouriteCommand = async (res: ResReqObj, chat_id: number) => {
 
   let textMessage: string = `This is your list of favorite crypto coins and their average price per hour.`;
   if (userCoin.length > 0 || !userCoin) {
-    userCoin.forEach(async (symbol, i, arr) => {
+    await userCoin.forEach(async (symbol, i, arr) => {
       const data: {
         symbol: string;
         price: string;
@@ -40,14 +40,14 @@ const listFavouriteCommand = async (res: ResReqObj, chat_id: number) => {
     });
   } else {
     try {
-      textMessage += `\nsorry, but now you don't have your favorite coins\npress /listRecent select your favorite coin and add it to your favorites list`;
+      textMessage += `\nSorry, but now you don't have your favorite coins.\nPress /listRecent select your favorite coin and added it to your favorites list`;
 
-      axios
+      await axios
         .post(`${TELEGRAM_URL}/sendMessage`, {
           chat_id,
           text: textMessage,
         })
-        .then(response => {
+        .then(() => {
           res.status(201).json({
             status: 'success',
             code: 201,
