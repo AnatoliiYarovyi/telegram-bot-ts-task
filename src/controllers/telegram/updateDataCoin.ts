@@ -7,16 +7,16 @@ type UpdateDataCoin = (
   res: ResReqObj,
   chat_id: number,
   symbol: string,
-  callback_query_id: string,
   message_id: number,
+  callback_query_id: string,
 ) => any;
 
 const updateDataCoin: UpdateDataCoin = async (
   res,
   chat_id,
   symbol,
-  callback_query_id,
   message_id,
+  callback_query_id,
 ) => {
   try {
     const { coin: userCoin } = await User.findOne({ chatId: chat_id });
@@ -30,8 +30,8 @@ const updateDataCoin: UpdateDataCoin = async (
     );
 
     let text: string = userCoin.includes(symbol)
-      ? `/${symbol} add to favorite`
-      : `/${symbol} remove from favorite`;
+      ? `/${symbol} added to favorite`
+      : `/${symbol} removed from favorite`;
 
     await axios.post(`${TELEGRAM_URL}/answerCallbackQuery`, {
       callback_query_id,
