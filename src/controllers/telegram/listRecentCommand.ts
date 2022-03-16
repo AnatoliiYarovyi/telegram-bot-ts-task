@@ -11,10 +11,11 @@ const listRecentCommand = async (res: ResReqObj, chat_id: number) => {
       price_average: string;
     }[] = await getAllCoins();
     let text: string = `These are 20 popular crypto coins and their average price per hour.`;
-    await data.forEach(({ symbol, price_average }) => {
+    data.forEach(({ symbol, price_average }) => {
       let price = Number(price_average).toFixed(2);
       text += `\n/${symbol} = ${price}$`;
     });
+
     await axios
       .post(`${TELEGRAM_URL}/sendMessage`, {
         chat_id,
