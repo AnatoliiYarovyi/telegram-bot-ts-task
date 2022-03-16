@@ -14,7 +14,7 @@ const main = async (req: ResReqObj, res: ResReqObj, next: void) => {
   if (!req.body.callback_query) {
     const { id: chatId, username } = req.body.message.chat;
     const { text } = req.body.message;
-    const textArr: string = text.replace(/ +/g, ' ').trim().split(' ');
+    const textArr: string = text.replace(/\s+/g, ' ').trim().split(' ');
     const command: string = textArr[0];
     const symbolCoin: string = textArr[1];
 
