@@ -1,3 +1,4 @@
+import { Request, Response, NextFunction } from 'express';
 import getSymbolCoin from '../coin/getSymbolCoin';
 import startCommand from './startCommand';
 import helpCommand from './helpCommand';
@@ -8,9 +9,7 @@ import updateDataCoin from './updateDataCoin';
 import addToFavoriteCommand from './addToFavoriteCommand';
 import deleteFavoriteCommand from './deleteFavoriteCommand';
 
-import ResReqObj from '../interface/interface';
-
-const main = async (req: ResReqObj, res: ResReqObj, next) => {
+const main = async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (!req.body.callback_query) {
       const { id: chatId, username } = req.body.message.chat;
@@ -66,7 +65,7 @@ const main = async (req: ResReqObj, res: ResReqObj, next) => {
         callback_query_id,
       );
     }
-  } catch (error) {    
+  } catch (error) {
     console.log(error.message);
     next(error);
   }
