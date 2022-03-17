@@ -1,12 +1,12 @@
 import axios from 'axios';
+import { Response } from 'express';
 const { TELEGRAM_URL } = process.env;
 
 import User from '../../models/user';
 import getCurrencyCoins from '../coin/getCurrencyCoins';
-import ResReqObj from '../interface/interface';
 
 type CurrencySymbolCommand = (
-  res: ResReqObj,
+  res: Response,
   chat_id: number,
   symbol: string,
 ) => any;
