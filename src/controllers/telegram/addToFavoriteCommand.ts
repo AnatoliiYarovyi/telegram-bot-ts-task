@@ -1,11 +1,11 @@
 import axios from 'axios';
+import { Response } from 'express';
 const { TELEGRAM_URL } = process.env;
 import User from '../../models/user';
 import getAllCoins from '../coin/getAllCoins';
-import ResReqObj from '../interface/interface';
 
 type AddToFavoriteCommand = (
-  res: ResReqObj,
+  res: Response,
   chat_id: number,
   symbol: string | undefined,
 ) => any;
