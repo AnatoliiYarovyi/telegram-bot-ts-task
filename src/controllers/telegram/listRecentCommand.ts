@@ -1,10 +1,10 @@
 import axios from 'axios';
+import { Response } from 'express';
 const { TELEGRAM_URL } = process.env;
 
 import getAllCoins from '../coin/getAllCoins';
-import ResReqObj from '../interface/interface';
 
-const listRecentCommand = async (res: ResReqObj, chat_id: number) => {
+const listRecentCommand = async (res: Response, chat_id: number) => {
   try {
     const data: {
       symbol: string;
