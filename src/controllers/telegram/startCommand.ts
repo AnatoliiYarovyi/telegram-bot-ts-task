@@ -1,11 +1,12 @@
 import axios from 'axios';
+import { Response } from 'express';
 const { TELEGRAM_URL } = process.env;
 
 import addUser from './addUser';
 import ResReqObj from '../interface/interface';
 
 const startCommand = async (
-  res: ResReqObj,
+  res: Response,
   chat_id: number,
   userName: string | undefined,
 ) => {
