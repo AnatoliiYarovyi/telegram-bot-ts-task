@@ -1,5 +1,7 @@
+import { Request, Response, NextFunction } from 'express';
+
 const controllerWrapper = ctrl => {
-  return async (req, res, next) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     try {
       await ctrl(req, res, next);
     } catch (error) {
