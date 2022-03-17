@@ -1,4 +1,5 @@
 import express from 'express';
+import { Response } from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
@@ -17,11 +18,11 @@ index.use(
 
 index.use('/', telegramRouter);
 
-index.use((_, res) => {
+index.use((_, res: Response) => {
   res.status(404).json({ message: 'Not found' });
 });
 
-index.use((err, _, res, __) => {
+index.use((err, _, res: Response, __) => {
   const { status = 500, message = 'Server error' } = err;
   res.status(status).json({ message });
 });
