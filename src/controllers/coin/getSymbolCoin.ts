@@ -2,13 +2,16 @@ import getAllCoins from './getAllCoins';
 
 const getSymbolCoin = async (text: string) => {
   const allCoins: {
-    symbol: string;
+    cryptocurrensy_symbol: string;
     price_average: string;
   }[] = await getAllCoins();
-  const arrCoin: string[] = allCoins.reduce((acc, { symbol }) => {
-    acc.push(symbol);
-    return acc;
-  }, []);
+  const arrCoin: string[] = allCoins.reduce(
+    (acc, { cryptocurrensy_symbol }) => {
+      acc.push(cryptocurrensy_symbol);
+      return acc;
+    },
+    [],
+  );
   const findCoin: string[] = arrCoin.filter(el => `/${el}` === text);
   return findCoin[0];
 };
