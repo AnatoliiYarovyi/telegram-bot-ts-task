@@ -7,13 +7,13 @@ import getAllCoins from '../coin/getAllCoins';
 const listRecentCommand = async (res: Response, chat_id: number) => {
   try {
     const data: {
-      cryptocurrensy_symbol: string;
-      price_average: string;
+      cryptocurrensySymbol: string;
+      priceAverage: string;
     }[] = await getAllCoins();
     let text: string = `These are 20 popular crypto coins and their average price per hour.`;
-    data.forEach(({ cryptocurrensy_symbol, price_average }) => {
-      let price = Number(price_average).toFixed(2);
-      text += `\n/${cryptocurrensy_symbol} = ${price}$`;
+    data.forEach(({ cryptocurrensySymbol, priceAverage }) => {
+      let price = Number(priceAverage).toFixed(2);
+      text += `\n/${cryptocurrensySymbol} = ${price}$`;
     });
 
     await axios
