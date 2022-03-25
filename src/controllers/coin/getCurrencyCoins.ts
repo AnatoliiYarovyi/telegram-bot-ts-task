@@ -1,5 +1,10 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 const { SERVER_COIN_URL } = process.env;
+
+interface DataCurrencyCoins {
+  symbol: string;
+  price: number;
+}
 
 const getCurrencyCoins = async (symbol: string, time: number = 60) => {
   try {
@@ -7,8 +12,8 @@ const getCurrencyCoins = async (symbol: string, time: number = 60) => {
       .get(SERVER_COIN_URL, {
         params: { name: symbol, timeInMinutes: time },
       })
-      .then(res => {
-        const data = res.data.data;
+      .then((res: AxiosResponse) => {
+        const data: DataCurrencyCoins[] = res.data.data;
         return data;
       });
     return resData;
