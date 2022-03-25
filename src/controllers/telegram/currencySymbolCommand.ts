@@ -30,9 +30,9 @@ const currencySymbolCommand: CurrencySymbolCommand = async (
   timeInMinutes.forEach(async (time, i, arr) => {
     const data: {
       symbol: string;
-      price: string;
-    } = await getCurrencyCoins(symbolCoin, time);
-    const priceCoin: string = Number(data.price).toFixed(2);
+      price: number;
+    }[] = await getCurrencyCoins(symbolCoin, time);
+    const priceCoin: string = Number(data[0].price).toFixed(2);
     textMessage += `\n${time / 60} hours = ${priceCoin}$`;
 
     if (i === arr.length - 1) {
