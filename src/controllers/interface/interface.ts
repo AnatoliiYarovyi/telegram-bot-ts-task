@@ -1,3 +1,3 @@
-export default interface ResReqObj {
-  [key: string]: any;
+export interface Obj {
+  [key: string]: string;
 }
