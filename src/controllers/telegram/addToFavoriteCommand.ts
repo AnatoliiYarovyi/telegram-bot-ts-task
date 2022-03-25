@@ -32,13 +32,16 @@ const addToFavoriteCommand: AddToFavoriteCommand = async (
   }
 
   const allCoinData: {
-    symbol: string;
-    price_average: string;
+    cryptocurrensySymbol: string;
+    priceAverage: string;
   }[] = await getAllCoins();
-  const allCoinName: string[] = allCoinData.reduce((acc, { symbol }) => {
-    acc.push(symbol);
-    return acc;
-  }, []);
+  const allCoinName: string[] = allCoinData.reduce(
+    (acc, { cryptocurrensySymbol }) => {
+      acc.push(cryptocurrensySymbol);
+      return acc;
+    },
+    [],
+  );
   const { coin: userCoin } = await User.findOne({ chatId: chat_id });
 
   if (userCoin.includes(symbol) === true) {
