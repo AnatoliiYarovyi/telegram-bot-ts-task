@@ -3,7 +3,6 @@ import { Response } from 'express';
 const { TELEGRAM_URL } = process.env;
 
 import addUser from './addUser';
-import ResReqObj from '../interface/interface';
 
 const startCommand = async (
   res: Response,
