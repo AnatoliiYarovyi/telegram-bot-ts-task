@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {  Response } from 'express';
+import { Response } from 'express';
 const { TELEGRAM_URL } = process.env;
 
 import User from '../../models/user';
@@ -13,10 +13,10 @@ const listFavouriteCommand = async (res: Response, chat_id: number) => {
     await userCoin.forEach(async (symbol, i, arr) => {
       const data: {
         symbol: string;
-        price: string;
-      } = await getCurrencyCoins(symbol);
+        price: number;
+      }[] = await getCurrencyCoins(symbol);
 
-      const price: string = Number(data.price).toFixed(2);
+      const price: string = Number(data[0].price).toFixed(2);
 
       textMessage += `\n/${symbol} = ${price}$`;
 
